@@ -25,7 +25,7 @@ namespace exam8
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ChatContext>(options => options.UseNpgsql(connection))
+            services.AddDbContext<ForumContext>(options => options.UseNpgsql(connection))
                 .AddIdentity<User,Role>(
                     options =>
                     {
@@ -34,7 +34,7 @@ namespace exam8
                         options.Password.RequireLowercase = false;
                         options.Password.RequireUppercase = false;
                         options.Password.RequireDigit = false;
-                    }).AddEntityFrameworkStores<ChatContext>().AddDefaultTokenProviders();
+                    }).AddEntityFrameworkStores<ForumContext>().AddDefaultTokenProviders();
             services.AddTransient<UploadService>();
             services.AddTransient<IAccountRegisterService, AccountRegisterService>();
             services.AddTransient<IDefaultUserImageAvatar>(_ =>
