@@ -41,6 +41,7 @@ namespace exam8
                 new DefaultUserImageAvatar(Configuration["PathToDefaultAvatar:Path"]));
             services.AddTransient<IProfileService, ProfileService>();
             services.AddTransient<ITopicService, TopicService>();
+            services.AddTransient<IAnswerService, AnswerService>();
             services.AddControllersWithViews();
         }
 
