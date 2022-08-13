@@ -18,10 +18,17 @@
                 <div id="password-view-login" class="password-img">
                     <img src="~/images/view.png" class="view" alt="view">
                 </div>
-                 <span class="validation text-danger"asp-validation-for="Password"></span>
+                <span class="validation text-danger"asp-validation-for="Password"></span>
             </div>
             <button class="login-btn btn btn-success" type="submit">Войти</button>
         </form>
     </div>
 </div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
