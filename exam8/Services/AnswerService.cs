@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using exam8.Models;
 using exam8.Services.Abstractions;
@@ -36,12 +35,12 @@ namespace exam8.Services
             _context.SaveChanges();
         }
 
-        public List<Answer> GetAnswers(int postId)
+        public IOrderedQueryable<Answer> GetAnswers(int postId)
         {
             var answers = _context.Answers
                 .Include(a => a.Topic)
                 .Include(a => a.User)
-                .Where(a => a.TopicId == postId).OrderByDescending(u => u.DateOfCreate).ToList();
+                .Where(a => a.TopicId == postId).OrderByDescending(u => u.DateOfCreate);
             return answers;
         }
     }

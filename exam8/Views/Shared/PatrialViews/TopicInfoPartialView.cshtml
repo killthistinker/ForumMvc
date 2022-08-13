@@ -1,31 +1,67 @@
-﻿@model Topic
+﻿@model IndexViewModel
 
-<div class="topic-contatiner" id="topic-answers">
-    <div class="topic-title">
-        <a asp-action="GetInfo" asp-controller="Topic" asp-route-id="@Model.Id" class="title-description">@Model.Title</a>
-        <p class="title-description">@Model.DateCreate</p>
-        <p class="title-description">@Model.User.UserName</p>
+<div class="topic-title">
+        <a asp-action="GetInfo" asp-controller="Topic" asp-route-id="@Model.Topic.Id" class="title-description">@Model.Topic.Title</a>
+        <p class="title-description">@Model.Topic.DateCreate</p>
+        <p class="title-description">@Model.Topic.User.UserName</p>
     </div>
     <div class="topic-subtitle">
-        <p class="topic-text">@Model.Description</p>
-        <button class="btn btn-info">Ответить</button>
+        <p class="topic-text">@Model.Topic.Description</p>
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
+            Ответить
+        </button>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Заполните форму ответа</h5>
+                    </div>
+                    <form id="answer">
+                        <div class="modal-body">
+                            <textarea id="description-text" class="answer-description" name="answer-value" type="text" placeholder="Введите ответ"></textarea>
+                            <input type="text" value="@Model.Topic.Id" id="post-id" hidden>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                            <button type="submit" id="submit" class="btn btn-primary">Отправить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="topic-answers">
+    <div class="topic-answers" id="answer-topic">
         @if (Model.Answers != null)
         {
-            foreach (var answer in Model.Answers)
-            {
-                <div class="topic-answer mt-3">
-                    <div class="answer-user-photo">
-                        <img src="../../@answer.User.Avatar" alt="avatar">
-                        <p class="user-name">@answer.User.UserName</p>
-                    </div>
-                    <div class="answer-description">
-                        <p class="user-name">@answer.Description</p>
-                    </div>
-                </div>
-            }
+            @await Html.PartialAsync("PatrialViews/AnswerPatrialView", Model)
         }
     </div>
-    
-</div>
+
+  @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a onclick="previusPage('@(Model.PageViewModel.PageNumber - 1)', '@Model.Topic.Id')"
+           class="btn btn-default btn">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Назад
+        </a>
+    }
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a onclick="nextPage('@(Model.PageViewModel.PageNumber + 1)','@Model.Topic.Id')"
+       class="btn btn-default btn">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
+
+@section Scripts
+{
+    <script >
+    function previusPage(page, id){
+        $('.topic-contatiner').load('@Url.Action("GetPage", "Topic")?id='+id+'&page='+page);
+    }
+    function nextPage(page, id){
+            $('.topic-contatiner').load('@Url.Action("GetPage", "Topic")?id='+id+'&page='+page);
+        }
+    </script>
+}

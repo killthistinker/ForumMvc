@@ -1,8 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using exam8.Models;
 using exam8.Services.Abstractions;
+using exam8.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace exam8.Controllers
 {
@@ -19,16 +23,26 @@ namespace exam8.Controllers
 
 
         [HttpGet]
-        public IActionResult AddAnswer(int postId, string answer)
+        public async Task<IActionResult> AddAnswer(int postId, string answer,int page =1)
         {
             int.TryParse(_userManager.GetUserId(User), out int userId);
             _answerService.AddAnswer(userId, postId, answer);
-            var answers = _answerService.GetAnswers(postId);
+            IQueryable<Answer> answers = _answerService.GetAnswers(postId);
             if (answers is null)
             {
                 return RedirectToAction("Error", "Errors", new {statusCode = 404});
             }
-            return PartialView("PatrialViews/AnswerPatrialView", answers);
+            int pageSize = 3;
+            var count = await answers.CountAsync();
+            var items = await answers.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+ 
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                PageViewModel = pageViewModel,
+                Answers = items
+            };
+            return PartialView("PatrialViews/AnswerPatrialView", viewModel);
         }
     }
 }

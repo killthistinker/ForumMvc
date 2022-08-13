@@ -1,8 +1,8 @@
-﻿@model List<Answer>
+﻿@model IndexViewModel
 
 @if (Model != null)
 {
-    @foreach (var answer in Model)
+    @foreach (var answer in Model.Answers)
     {
         <div class="topic-answer">
             <div class="answer-user-photo">
@@ -16,3 +16,6 @@
         </div>
     }
 }
+
+
+
