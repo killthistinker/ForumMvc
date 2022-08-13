@@ -37,7 +37,8 @@ namespace exam8.Services
         {
             Topic topic = _context.Topics
                 .Include(t => t.User)
-                .Include(t => t.Answers)
+                .Include(t => t.Answers.OrderByDescending(a => a.DateOfCreate))
+                .ThenInclude(t => t.User)
                 .FirstOrDefault(t => t.Id == id);
             return topic;
 
