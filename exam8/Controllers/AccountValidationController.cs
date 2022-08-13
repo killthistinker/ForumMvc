@@ -7,9 +7,9 @@ namespace exam8.Controllers
 {
     public class AccountValidationController : Controller
     {
-        private readonly ChatContext _context;
+        private readonly ForumContext _context;
 
-        public AccountValidationController(ChatContext context)
+        public AccountValidationController(ForumContext context)
         {
             _context = context;
         }
@@ -24,20 +24,6 @@ namespace exam8.Controllers
         {
             bool validation = !_context.Users.AsEnumerable().Any(p => p.UserName.Equals(userName));
             return validation;
-        }
-
-        public bool CheckAccountAge(DateTime dateOfBirth)
-        {
-            int year = DateTime.Now.Year - dateOfBirth.Year;
-            
-            if (DateTime.Now.Month < dateOfBirth.Month || (DateTime.Now.Month == dateOfBirth.Month && DateTime.Now.Day < dateOfBirth.Day))
-            {
-                year--;
-            }
-            
-            if (year < 18) return false;
-            
-            return true;
         }
     }
 }
