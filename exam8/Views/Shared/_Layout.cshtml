@@ -17,7 +17,7 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Главная</a>
                     </li>
                     @if (!User.Identity.IsAuthenticated)
                     {
@@ -31,11 +31,17 @@
                     else
                     {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">@User.Identity.Name</a>
+                            <a class="nav-link text-dark" asp-controller="Topic" asp-action="Create">Создать тему</a>
                         </li>
                         <form method="post" asp-controller="Account" asp-action="LogOff">
-                            <input type="submit" value="Выйти">
+                            <input type="submit" class="btn btn-warning" value="Выйти">
                         </form>
+                        <a class="btn btn-warning" 
+                           asp-action="Index" 
+                           asp-controller="Profile" 
+                           asp-route-userName="@User.Identity.Name">
+                            @User.Identity.Name
+                        </a>
                     }
                 </ul>
             </div>
@@ -50,9 +56,24 @@
 
 <footer class="border-top footer text-muted">
 </footer>
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
+<script >
+ $("#profile-info").click( function (event){
+     
+     console.log(12)
+     var name = $("#user-name").val();
+     var key = encodeURIComponent(name);
+     $("#exampleModal").load('@Url.Action("Index", "Profile")?userName='+key)
+     
+ })
+     // function toProfile(name){
+     //                  console.log(name)
+     //                  $("#go-to-user").load('@Url.Action("Index", "Profile")?userName='+name);
+     //                  };
+</script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
