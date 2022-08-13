@@ -1,0 +1,37 @@
+﻿@model Topic
+
+@{
+    ViewBag.Title = "Подробная информация";
+    Layout = "_Layout";
+}
+
+   <div class="topic-contatiner">
+        <div class="topic-title">
+            <a asp-action="GetInfo" asp-controller="Topic" asp-route-id="@Model.Id" class="title-description">@Model.Title</a>
+            <p class="title-description">@Model.DateCreate</p>
+            <p class="title-description">@Model.User.UserName</p>
+        </div>
+       <div class="topic-subtitle">
+           <p class="topic-text">@Model.Description</p>
+           <button class="btn btn-info">Ответить</button>
+       </div>
+       <div class="topic-answers">
+               @if (Model.Answers != null)
+                   {
+                       foreach (var answer in Model.Answers)
+                       {
+                           <div class="topic-answer">
+                               <div class="answer-user-photo">
+                                   <img src="../../@answer.User.Avatar" alt="avatar">
+                                   <p class="user-name">@answer.User.UserName</p>
+                               </div>
+                               <div class="answer-description">
+                                   <img src="../../@answer.DateOfCreate" alt="avatar">
+                                   <p class="user-name">@answer.Description</p>
+                               </div>
+                           </div>
+                       }
+                   }
+       </div>
+    
+    </div>
