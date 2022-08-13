@@ -39,6 +39,8 @@ namespace exam8
             services.AddTransient<IAccountRegisterService, AccountRegisterService>();
             services.AddTransient<IDefaultUserImageAvatar>(_ =>
                 new DefaultUserImageAvatar(Configuration["PathToDefaultAvatar:Path"]));
+            services.AddTransient<IProfileService, ProfileService>();
+            services.AddTransient<ITopicService, TopicService>();
             services.AddControllersWithViews();
         }
 
