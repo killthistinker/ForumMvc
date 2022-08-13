@@ -32,12 +32,5 @@ namespace exam8.ViewModels
        
         public string ImagePath { get; set; }
         public IFormFile File { get; set; }
-        
-        [Required(ErrorMessage = "Поле обязательно для заполнения")]
-        
-     
-        [Remote("CheckAccountAge", "AccountValidation", ErrorMessage = "Пользователем младше 18 лет вход запрещен")]
-        public DateTime DateOfBirth { get; set; }
-
     }
 }
