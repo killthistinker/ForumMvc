@@ -1,33 +1,23 @@
-﻿using System.Diagnostics;
-using exam8.Models;
+﻿using System.Linq;
+using exam8.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+
 
 namespace exam8.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ITopicService _topicService;
+        public HomeController(ITopicService topicService)
         {
-            _logger = logger;
+            _topicService = topicService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var topic = _topicService.GetTopics();
+            return View(topic.ToList());
         }
         
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel
-            {
-                StatusCode = 0,
-                Title = null,
-                Message = null
-            });
-        }
     }
 }
