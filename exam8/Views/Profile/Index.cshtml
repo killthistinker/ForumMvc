@@ -1,0 +1,22 @@
+﻿@model User
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Информация о пользователе</h2>
+<div class="topic-contatiner">
+       
+<div class="topic-answers">
+    <div class="topic-answer">
+        <div class="answer-user-photo">
+            <img src="~/@Model.Avatar" alt="avatar">
+            <p class="user-name">Имя: @Model.UserName</p>
+            <p class="user-name">Email: @Model.Email</p>
+        </div>
+    </div>
+    
+</div>
+</div>
+
