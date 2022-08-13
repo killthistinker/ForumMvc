@@ -1,0 +1,18 @@
+﻿@model List<Answer>
+
+@if (Model != null)
+{
+    @foreach (var answer in Model)
+    {
+        <div class="topic-answer">
+            <div class="answer-user-photo">
+                <img src="../../@answer.User.Avatar" alt="avatar">
+                <p class="user-name">Имя пользователя: @answer.User.UserName</p>
+            </div>
+            <div class="answer-description">
+                <p>Дата создания: @answer.DateOfCreate</p>
+                <p class="user-name">Ответ: @answer.Description</p>
+            </div>
+        </div>
+    }
+}
