@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "exam8", "exam8\exam8.csproj", "{DC4E8CF3-3A11-4ABA-B8A6-A0E3E41DCB5F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForumMvc", "ForumMvc\ForumMvc.csproj", "{DC4E8CF3-3A11-4ABA-B8A6-A0E3E41DCB5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
